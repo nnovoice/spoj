@@ -11,6 +11,7 @@ void gen_primes()
 {
     int i = 0, j = 0;
     clock_t tStart = clock();
+    clock_t ls, le;
 
     memset(primes, true, sizeof(bool) * MAX);
 
@@ -23,9 +24,12 @@ void gen_primes()
     for (i = 3; i < MAX_SQ_ROOT; i += 2) {
         if (primes[i] == true) {
             //printf("%d\n", i);
+            ls = clock();
             for (j = i + i; j < MAX; j += i)
                 if (primes[j] == true)
                     primes[j] = false;
+            le = clock();
+            printf("Time inside loop=%.2fs for i=%d\n", (double)(le - ls)/CLOCKS_PER_SEC, i);
         }
     }
     printf("Time taken: %.2fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);
